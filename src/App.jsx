@@ -43,7 +43,6 @@ export default function EKXARegistry() {
   const [toast, setToast] = useState(null);
   const [editingRecord, setEditingRecord] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lang, setLang] = useState('el');
 
   const [session, setSession] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -196,31 +195,7 @@ export default function EKXARegistry() {
            r.owner_name.toLowerCase().includes(q) || r.region.toLowerCase().includes(q);
   });
 
-  const confirmedRecords = records.filter(r => effectiveStatus(r) === 'confirmed').length;
-  const ui = {
-    el: {
-      ministry: '{ui.ministry}',
-      subtitle: 'ΕΚΧΑ — Εθνικό Κτηματολόγιο & Χαρτογράφηση',
-      search: 'Αναζήτηση', registry: 'Μητρώου', register: 'Καταχώριση', property: 'Ακινήτου',
-      login: 'Είσοδος Υπαλλήλου', logout: 'Αποσύνδεση',
-      breadcrumb1: 'Ηλεκτρονικές Υπηρεσίες', breadcrumb2: 'Εθνικό Κτηματολόγιο',
-      readonly: 'Δημόσια προβολή μόνο για ανάγνωση. Μόνο υπάλληλοι ΕΚΧΑ μπορούν να προσθέτουν, να επεξεργάζονται ή να αφαιρούν εγγραφές.',
-      officerLogin: 'Σύνδεση Υπαλλήλου', officerText: 'Συνδεθείτε με τα στοιχεία υπαλλήλου ΕΚΧΑ.', officerHint: 'Είσοδος με διαπιστευτήρια υπαλλήλου ΕΚΧΑ.',
-      footer: '{ui.footer}', terms: 'Όροι Χρήσης', privacy: 'Πολιτική Απορρήτου', access: 'Προσβασιμότητα', contact: 'Επικοινωνία'
-    },
-    en: {
-      ministry: 'Ministry of Digital Governance',
-      subtitle: 'EKXA — National Cadastre & Mapping Agency',
-      search: 'Search', registry: 'Registry', register: 'Register', property: 'Property',
-      login: 'Officer Login', logout: 'Log out',
-      breadcrumb1: 'Digital Services', breadcrumb2: 'National Cadastre',
-      readonly: 'Public read-only view. Only EKXA officers may add, edit, or remove entries.',
-      officerLogin: 'Officer Sign In', officerText: 'Sign in with your EKXA officer credentials.', officerHint: 'Use official EKXA officer credentials.',
-      footer: 'Cadastre services for citizens and professionals', terms: 'Terms of Use', privacy: 'Privacy Policy', access: 'Accessibility', contact: 'Contact'
-    }
-  }[lang];
-
-  const todayStr = new Date().toLocaleDateString(lang === 'el' ? 'el-GR' : 'en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+  const todayStr = new Date().toLocaleDateString('el-GR', { day: '2-digit', month: 'long', year: 'numeric' });
 
   return (
     <div style={{ minHeight: '100vh', background: '#f5f8fc', fontFamily: "'Inter', 'Open Sans', Arial, sans-serif", color: GOV_TEXT }}>
@@ -229,16 +204,16 @@ export default function EKXARegistry() {
       <header style={{ background: GOV_NAVY, color: '#fff' }}>
         <div style={{ background: GOV_DEEP, borderBottom: '1px solid rgba(255,255,255,0.12)' }}>
           <div style={{ maxWidth: 1280, margin: '0 auto', padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <img
-                src="/ministry-logo.png"
-                alt="Ελληνική Δημοκρατία — Υπουργείο Ψηφιακής Διακυβέρνησης"
-                style={{ height: 38, width: 'auto', display: 'block', objectFit: 'contain' }}
-              />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <StateEmblem size={34} />
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 0.7 }}>ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ</div>
+                <div style={{ fontSize: 10.5, opacity: 0.72 }}>Υπουργείο Ψηφιακής Διακυβέρνησης</div>
+              </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14, fontSize: 13 }}>
               <span style={{ opacity: 0.75 }}>{todayStr}</span>
-              <button onClick={() => setLang(lang === 'el' ? 'en' : 'el')} title={lang === 'el' ? 'Switch to English' : 'Αλλαγή στα Ελληνικά'} style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#fff', color: GOV_NAVY, border: 'none', borderRadius: 999, padding: '8px 14px', fontWeight: 700, fontFamily: 'inherit', cursor: 'pointer' }}>{lang === 'el' ? 'EL' : 'EN'}⌄</button>
+              <button style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: '#fff', color: GOV_NAVY, border: 'none', borderRadius: 999, padding: '8px 14px', fontWeight: 700, fontFamily: 'inherit' }}>EL⌄</button>
             </div>
           </div>
         </div>
@@ -252,18 +227,18 @@ export default function EKXARegistry() {
               </div>
               <div>
                 <div style={{ fontSize: 30, lineHeight: 1, fontWeight: 800, letterSpacing: -0.6 }}>Κτηματολόγιο</div>
-                <div style={{ marginTop: 5, color: '#b9d7f4', fontSize: 13, fontWeight: 600 }}>{ui.subtitle}</div>
+                <div style={{ marginTop: 5, color: '#b9d7f4', fontSize: 13, fontWeight: 600 }}>ΕΚΧΑ — Εθνικό Κτηματολόγιο &amp; Χαρτογράφηση</div>
               </div>
             </div>
 
             <div style={{ display: 'none', alignItems: 'center', gap: 10 }} className="ekxa-nav-desktop">
-              <NavBtn active={view === 'search'} onClick={() => { setView('search'); setEditingRecord(null); }} label={ui.search} sub={ui.registry} />
-              {isOfficer && <NavBtn active={view === 'register'} onClick={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); }} label={ui.register} sub={ui.property} />}
+              <NavBtn active={view === 'search'} onClick={() => { setView('search'); setEditingRecord(null); }} label="Αναζήτηση" sub="Μητρώου" />
+              {isOfficer && <NavBtn active={view === 'register'} onClick={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); }} label="Καταχώριση" sub="Ακινήτου" />}
               {!authLoading && (
                 isOfficer ? (
-                  <button onClick={handleLogout} style={pillBtnStyle()}><LogOut size={16} /> {ui.logout}</button>
+                  <button onClick={handleLogout} style={pillBtnStyle()}><LogOut size={16} /> Αποσύνδεση</button>
                 ) : (
-                  <button onClick={() => setShowAuthModal(true)} style={pillBtnStyle()}><Lock size={16} /> {ui.login}</button>
+                  <button onClick={() => setShowAuthModal(true)} style={pillBtnStyle()}><Lock size={16} /> Είσοδος Υπαλλήλου</button>
                 )
               )}
             </div>
@@ -275,13 +250,13 @@ export default function EKXARegistry() {
 
           {mobileMenuOpen && (
             <div className="ekxa-mobile-menu" style={{ marginTop: 20, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.16)', borderRadius: 16, padding: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <NavBtn active={view === 'search'} onClick={() => { setView('search'); setEditingRecord(null); setMobileMenuOpen(false); }} label={ui.search} sub={ui.registry} full />
-              {isOfficer && <NavBtn active={view === 'register'} onClick={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); setMobileMenuOpen(false); }} label={ui.register} sub={ui.property} full />}
+              <NavBtn active={view === 'search'} onClick={() => { setView('search'); setEditingRecord(null); setMobileMenuOpen(false); }} label="Αναζήτηση" sub="Μητρώου" full />
+              {isOfficer && <NavBtn active={view === 'register'} onClick={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); setMobileMenuOpen(false); }} label="Καταχώριση" sub="Ακινήτου" full />}
               {!authLoading && (
                 isOfficer ? (
-                  <button onClick={handleLogout} style={{ ...pillBtnStyle(), width: '100%', justifyContent: 'center' }}><LogOut size={16} /> {ui.logout}</button>
+                  <button onClick={handleLogout} style={{ ...pillBtnStyle(), width: '100%', justifyContent: 'center' }}><LogOut size={16} /> Αποσύνδεση</button>
                 ) : (
-                  <button onClick={() => setShowAuthModal(true)} style={{ ...pillBtnStyle(), width: '100%', justifyContent: 'center' }}><Lock size={16} /> {ui.login}</button>
+                  <button onClick={() => setShowAuthModal(true)} style={{ ...pillBtnStyle(), width: '100%', justifyContent: 'center' }}><Lock size={16} /> Είσοδος Υπαλλήλου</button>
                 )
               )}
             </div>
@@ -291,14 +266,14 @@ export default function EKXARegistry() {
 
       <div style={{ background: '#fff', borderBottom: `1px solid ${GOV_BORDER}` }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '13px 24px', fontSize: 13, color: GOV_GRAY, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-          <span>gov.gr</span><ChevronRight size={13} /><span>{ui.breadcrumb1}</span><ChevronRight size={13} /><span style={{ color: GOV_BLUE, fontWeight: 800 }}>{ui.breadcrumb2}</span>
+          <span>gov.gr</span><ChevronRight size={13} /><span>Ηλεκτρονικές Υπηρεσίες</span><ChevronRight size={13} /><span style={{ color: GOV_BLUE, fontWeight: 800 }}>Εθνικό Κτηματολόγιο</span>
         </div>
       </div>
 
       {!isOfficer && !authLoading && (
         <div style={{ background: '#eaf6ff', borderBottom: '1px solid #cfeaff', padding: '11px 20px', textAlign: 'center' }}>
           <span style={{ fontSize: 13, color: GOV_NAVY, display: 'inline-flex', alignItems: 'center', gap: 7, fontWeight: 700 }}>
-            <Lock size={14} /> {ui.readonly}
+            <Lock size={14} /> Δημόσια προβολή μόνο για ανάγνωση. Only ΕΚΧΑ officers may add, edit, or remove entries.
           </span>
         </div>
       )}
@@ -309,13 +284,13 @@ export default function EKXARegistry() {
             <div style={{ background: GOV_NAVY, padding: '20px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <Unlock size={18} color="#fff" />
-                <div style={{ fontWeight: 800, fontSize: 17, color: '#fff' }}>{ui.officerLogin}</div>
+                <div style={{ fontWeight: 800, fontSize: 17, color: '#fff' }}>Σύνδεση Υπαλλήλου</div>
               </div>
               <button onClick={() => { setShowAuthModal(false); setAuthError(''); setLoginEmail(''); setLoginPassword(''); }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#cfe0f0' }}><X size={22} /></button>
             </div>
             <div style={{ padding: 26 }}>
               <p style={{ fontSize: 14, color: GOV_GRAY, marginBottom: 18, lineHeight: 1.55 }}>
-                {ui.officerText}<br /><span style={{ color: '#8a95a3' }}>{ui.officerHint}</span>
+                Συνδεθείτε με τα στοιχεία υπαλλήλου ΕΚΧΑ.<br /><span style={{ color: '#8a95a3' }}>Sign in with your ΕΚΧΑ officer credentials.</span>
               </p>
               <form onSubmit={handleLogin}>
                 <div style={{ marginBottom: 12 }}>
@@ -346,7 +321,7 @@ export default function EKXARegistry() {
       <main>
         {view === 'search' && !selectedRecord && (
           <SearchView query={query} setQuery={setQuery} filtered={filtered} loading={loading} onOpen={(r) => setSelectedRecord(r)} effectiveStatus={effectiveStatus}
-            onGoRegister={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); }} isOfficer={isOfficer} totalCount={records.length} confirmedCount={confirmedRecords} lang={lang} />
+            onGoRegister={() => { setForm(emptyForm()); setEditingRecord(null); setView('register'); }} isOfficer={isOfficer} totalCount={records.length} />
         )}
         {selectedRecord && (
           <section style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 76px' }}>
@@ -372,9 +347,9 @@ export default function EKXARegistry() {
 
       <footer style={{ background: '#fff', borderTop: `4px solid ${GOV_BLUE}`, padding: '30px 24px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-          <div style={{ fontSize: 12.5, color: GOV_GRAY, lineHeight: 1.6 }}>© Ελληνικό Κτηματολόγιο &amp; Χαρτογράφηση Α.Ε.<br />{ui.footer}</div>
+          <div style={{ fontSize: 12.5, color: GOV_GRAY, lineHeight: 1.6 }}>© Ελληνικό Κτηματολόγιο &amp; Χαρτογράφηση Α.Ε.<br />Υπηρεσίες κτηματολογίου για πολίτες και επαγγελματίες</div>
           <div style={{ display: 'flex', gap: 26, flexWrap: 'wrap', fontSize: 13, color: GOV_NAVY, fontWeight: 700 }}>
-            <span>{ui.terms}</span><span>{ui.privacy}</span><span>{ui.access}</span><span>{ui.contact}</span>
+            <span>Όροι Χρήσης</span><span>Πολιτική Απορρήτου</span><span>Προσβασιμότητα</span><span>Επικοινωνία</span>
           </div>
         </div>
       </footer>
@@ -415,57 +390,26 @@ function StatusPill({ status }) {
   );
 }
 
-function SearchView({ query, setQuery, filtered, loading, onOpen, effectiveStatus, onGoRegister, isOfficer, totalCount, confirmedCount, lang }) {
-  const confirmedPercent = totalCount ? Math.round((confirmedCount / totalCount) * 100) : 0;
-  const ringAngle = totalCount ? Math.round((confirmedCount / totalCount) * 360) : 0;
-  const s = lang === 'el' ? {
-    eyebrow: '{s.eyebrow}',
-    title: '{s.title}',
-    lead: '{s.lead}',
-    placeholder: '{s.placeholder}',
-    statLabel: 'Επιβεβαιωμένες εγγραφές',
-    statSub: `${confirmedCount} από ${totalCount} εγγραφές`,
-    results: '{s.results}',
-    loading: '{s.loading}',
-    count: s.count,
-    none: s.none,
-    register: '{s.register}',
-    owner: '{s.owner}',
-    type: '{s.type}', building: 'Κτίριο', land: 'Γη'
-  } : {
-    eyebrow: 'CADASTRE DIGITAL SERVICE',
-    title: 'Property Registry Search',
-    lead: 'Search by parcel number, address, owner, or region.',
-    placeholder: 'Search here ...',
-    statLabel: 'Verified registry entries',
-    statSub: `${confirmedCount} of ${totalCount} records`,
-    results: 'Search Results',
-    loading: 'Loading registry…',
-    count: `${filtered.length} of ${totalCount} record(s)`,
-    none: query ? 'No results found' : 'No entries yet',
-    register: 'Register Property',
-    owner: 'Owner',
-    type: 'Type', building: 'Building', land: 'Land'
-  };
+function SearchView({ query, setQuery, filtered, loading, onOpen, effectiveStatus, onGoRegister, isOfficer, totalCount }) {
   return (
     <div>
       <section style={{ background: `linear-gradient(180deg, ${GOV_NAVY} 0%, ${GOV_BLUE_DARK} 100%)`, color: '#fff', borderBottom: `4px solid ${GOV_CYAN}` }}>
         <div style={{ maxWidth: 1180, margin: '0 auto', padding: '54px 24px 58px', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 34, alignItems: 'center' }} className="ekxa-results-row">
           <div>
-            <div style={{ fontSize: 14, color: '#9ed8ff', fontWeight: 800, marginBottom: 10 }}>{s.eyebrow}</div>
-            <h1 style={{ fontSize: 38, lineHeight: 1.12, fontWeight: 800, margin: 0, letterSpacing: -1 }}>{s.title}</h1>
-            <p style={{ color: '#c7ddf2', fontSize: 17, marginTop: 12, maxWidth: 650, lineHeight: 1.55 }}>{s.lead}</p>
+            <div style={{ fontSize: 14, color: '#9ed8ff', fontWeight: 800, marginBottom: 10 }}>ΗΛΕΚΤΡΟΝΙΚΗ ΥΠΗΡΕΣΙΑ ΚΤΗΜΑΤΟΛΟΓΙΟΥ</div>
+            <h1 style={{ fontSize: 38, lineHeight: 1.12, fontWeight: 800, margin: 0, letterSpacing: -1 }}>Αναζήτηση Μητρώου Ακινήτων</h1>
+            <p style={{ color: '#c7ddf2', fontSize: 17, marginTop: 12, maxWidth: 650, lineHeight: 1.55 }}>Αναζητήστε με αριθμό οικοπέδου, διεύθυνση, ιδιοκτήτη ή περιφέρεια.</p>
             <div style={{ marginTop: 24, position: 'relative', maxWidth: 620 }}>
-              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="{s.placeholder}"
+              <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Αναζήτηση εδώ ..."
                 style={{ width: '100%', padding: '18px 70px 18px 20px', borderRadius: 10, border: 'none', fontSize: 16, fontFamily: 'inherit', outline: 'none', background: '#fff', boxSizing: 'border-box', boxShadow: '0 18px 40px rgba(0,0,0,0.18)' }} />
               <button style={{ position: 'absolute', right: 7, top: 7, bottom: 7, width: 52, border: 'none', background: GOV_BLUE_DARK, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Search size={22} color="#fff" /></button>
             </div>
           </div>
           <div style={{ minWidth: 260, background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.20)', borderRadius: 24, padding: 24, boxShadow: '0 18px 50px rgba(0,0,0,0.12)' }}>
-            <div style={{ fontSize: 13, color: '#b9d7f4', fontWeight: 800 }}>{s.statLabel}</div>
+            <div style={{ fontSize: 13, color: '#b9d7f4', fontWeight: 800 }}>Ποσοστό Κτηματογράφησης</div>
             <div style={{ marginTop: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
-              <div style={{ width: 70, height: 70, borderRadius: '50%', background: `conic-gradient(${GOV_GREEN} ${ringAngle}deg, rgba(255,255,255,0.18) 0deg)`, display: 'grid', placeItems: 'center' }}><div style={{ width: 50, height: 50, borderRadius: '50%', background: GOV_BLUE_DARK }} /></div>
-              <div><div style={{ fontSize: 34, fontWeight: 800 }}>{confirmedPercent}%</div><div style={{ marginTop: 4, color: '#b9d7f4', fontSize: 12, fontWeight: 700 }}>{s.statSub}</div></div>
+              <div style={{ width: 70, height: 70, borderRadius: '50%', border: `10px solid ${GOV_GREEN}`, borderRightColor: 'rgba(255,255,255,0.18)' }} />
+              <div style={{ fontSize: 34, fontWeight: 800 }}>76%</div>
             </div>
           </div>
         </div>
@@ -473,16 +417,16 @@ function SearchView({ query, setQuery, filtered, loading, onOpen, effectiveStatu
 
       <section style={{ maxWidth: 1180, margin: '0 auto', padding: '34px 24px 28px' }}>
         <div style={{ marginBottom: 18 }}>
-          <h2 style={{ fontSize: 22, color: GOV_TEXT, margin: 0, fontWeight: 800 }}>{s.results}</h2>
-          <div style={{ color: GOV_GRAY, fontSize: 14, marginTop: 6 }}>{loading ? '{s.loading}' : s.count}</div>
+          <h2 style={{ fontSize: 22, color: GOV_TEXT, margin: 0, fontWeight: 800 }}>Αποτελέσματα Αναζήτησης</h2>
+          <div style={{ color: GOV_GRAY, fontSize: 14, marginTop: 6 }}>{loading ? 'Φόρτωση μητρώου…' : `${filtered.length} από ${totalCount} εγγραφή/ές`}</div>
         </div>
 
         {loading ? (
-          <div style={{ color: GOV_GRAY, fontSize: 14, padding: '46px 0', textAlign: 'center', background: '#fff', border: `1px solid ${GOV_BORDER}`, borderRadius: 16 }}>{s.loading}</div>
+          <div style={{ color: GOV_GRAY, fontSize: 14, padding: '46px 0', textAlign: 'center', background: '#fff', border: `1px solid ${GOV_BORDER}`, borderRadius: 16 }}>Φόρτωση μητρώου…</div>
         ) : filtered.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '58px 24px', background: '#fff', border: `1px solid ${GOV_BORDER}`, borderRadius: 16, boxShadow: '0 18px 50px rgba(0, 43, 92, 0.08)' }}>
-            <div style={{ fontSize: 16, fontWeight: 800, color: GOV_NAVY, marginBottom: 10 }}>{s.none}</div>
-            {isOfficer && !query && <button onClick={onGoRegister} style={{ background: GOV_BLUE, color: '#fff', border: 'none', padding: '12px 22px', borderRadius: 10, fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>{s.register}</button>}
+            <div style={{ fontSize: 16, fontWeight: 800, color: GOV_NAVY, marginBottom: 10 }}>{query ? 'Δεν βρέθηκαν αποτελέσματα' : 'Δεν υπάρχουν ακόμη καταχωρίσεις'}</div>
+            {isOfficer && !query && <button onClick={onGoRegister} style={{ background: GOV_BLUE, color: '#fff', border: 'none', padding: '12px 22px', borderRadius: 10, fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>Καταχώριση Ακινήτου</button>}
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -495,8 +439,8 @@ function SearchView({ query, setQuery, filtered, loading, onOpen, effectiveStatu
                   <div style={{ fontWeight: 800, fontSize: 20, color: GOV_TEXT }}>{r.address}</div>
                   <div style={{ fontSize: 14, color: GOV_GRAY, marginTop: 6, fontFamily: "'Roboto Mono', monospace" }}>{r.parcel_id} · {r.region}</div>
                   <div style={{ marginTop: 16, display: 'flex', gap: 34, flexWrap: 'wrap', fontSize: 13.5, color: GOV_GRAY }}>
-                    <span><b style={{ color: GOV_TEXT }}>{s.owner}</b><br />{r.owner_name}</span>
-                    <span><b style={{ color: GOV_TEXT }}>{s.type}</b><br />{r.property_type === 'building' ? s.building : s.land}</span>
+                    <span><b style={{ color: GOV_TEXT }}>Ιδιοκτήτης</b><br />{r.owner_name}</span>
+                    <span><b style={{ color: GOV_TEXT }}>Τύπος</b><br />{r.property_type === 'building' ? 'Κτίριο' : 'Γη'}</span>
                   </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 18, justifyContent: 'space-between' }}>
@@ -514,7 +458,7 @@ function SearchView({ query, setQuery, filtered, loading, onOpen, effectiveStatu
         <p style={{ color: GOV_GRAY, marginTop: 8 }}>Ψηφιακές υπηρεσίες για πολίτες και επαγγελματίες</p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 22, marginTop: 22 }} className="ekxa-services-grid">
           <ServiceCard icon={<Search size={28} />} title="Αναζήτηση Ακινήτων" text="Αναζητήστε ακίνητα στο εθνικό μητρώο." />
-          <ServiceCard icon={<Building2 size={28} />} title="{s.register}" text="Υποβάλετε νέα ακίνητα ή ενημερώστε στοιχεία." />
+          <ServiceCard icon={<Building2 size={28} />} title="Καταχώριση Ακινήτου" text="Υποβάλετε νέα ακίνητα ή ενημερώστε στοιχεία." />
           <ServiceCard icon={<CheckCircle2 size={28} />} title="Δήλωση Ιδιοκτησίας" text="Υποβάλετε δήλωση και συνοδευτικά έγγραφα." />
           <ServiceCard icon={<Clock size={28} />} title="Δημόσιες Προειδοποιήσεις" text="Παρακολουθήστε την περίοδο ελέγχου." />
         </div>
@@ -537,8 +481,8 @@ function ServiceCard({ icon, title, text }) {
 function RecordDetail({ record, status, onBack, isOfficer, onEdit, onDelete }) {
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const fields = [
-    ['{s.owner} / Owner', record.owner_name], ['Διεύθυνση / Address', record.address], ['Περιφέρεια / Region', record.region],
-    ['{s.type} / Type', record.property_type === 'building' ? s.building : s.land], ['Περιγραφή', record.size_description || '—'], ['Όρια', record.boundaries || '—'],
+    ['Ιδιοκτήτης / Owner', record.owner_name], ['Διεύθυνση / Address', record.address], ['Περιφέρεια / Region', record.region],
+    ['Τύπος / Type', record.property_type === 'building' ? 'Κτίριο' : 'Γη'], ['Περιγραφή', record.size_description || '—'], ['Όρια', record.boundaries || '—'],
   ];
   return (
     <div>
@@ -600,7 +544,7 @@ function RegisterView({ form, setForm, onSubmit, submitting, editingRecord }) {
   return (
     <div>
       <div style={{ background: `linear-gradient(135deg, ${GOV_NAVY}, ${GOV_BLUE})`, color: '#fff', borderRadius: '18px 18px 0 0', padding: '30px 32px' }}>
-        <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0 }}>{editingRecord ? `Επεξεργασία ${editingRecord.parcel_id}` : '{s.register}'}</h1>
+        <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0 }}>{editingRecord ? `Επεξεργασία ${editingRecord.parcel_id}` : 'Καταχώριση Ακινήτου'}</h1>
         <p style={{ color: '#c7ddf2', marginTop: 8, marginBottom: 0 }}>Συμπληρώστε τα στοιχεία του ακινήτου στο μητρώο.</p>
       </div>
       <form onSubmit={onSubmit} style={{ background: '#fff', border: `1px solid ${GOV_BORDER}`, borderTop: 'none', borderRadius: '0 0 18px 18px', padding: '28px 32px 10px', boxShadow: '0 18px 50px rgba(0, 43, 92, 0.08)' }}>
@@ -608,7 +552,7 @@ function RegisterView({ form, setForm, onSubmit, submitting, editingRecord }) {
         <div style={{ marginBottom: 18 }}><label style={labelStyle}>Διεύθυνση Ακινήτου</label><input style={inputStyle} value={form.address} onChange={(e) => update('address', e.target.value)} placeholder="e.g. Αδριανού 14, Πλάκα" /></div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }} className="ekxa-fields-grid">
           <div><label style={labelStyle}>Περιφέρεια</label><input style={inputStyle} value={form.region} onChange={(e) => update('region', e.target.value)} placeholder="e.g. Αττική" /></div>
-          <div><label style={labelStyle}>{s.type} Ακινήτου</label>
+          <div><label style={labelStyle}>Τύπος Ακινήτου</label>
             <select style={inputStyle} value={form.propertyType} onChange={(e) => update('propertyType', e.target.value)}>
               <option value="land">Γη</option><option value="building">Κτίριο</option>
             </select>
@@ -629,4 +573,3 @@ function RegisterView({ form, setForm, onSubmit, submitting, editingRecord }) {
     </div>
   );
 }
-
