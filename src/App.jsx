@@ -629,3 +629,4 @@ function RegisterView({ form, setForm, onSubmit, submitting, editingRecord }) {
     </div>
   );
 }
+
